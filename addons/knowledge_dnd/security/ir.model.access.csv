@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_knowledge_folder_user,knowledge.folder user,knowledge_dnd.model_knowledge_folder,knowledge_ce.knowledge_group_user,1,1,1,0
+access_knowledge_folder_manager,knowledge.folder manager,knowledge_dnd.model_knowledge_folder,knowledge_ce.knowledge_group_manager,1,1,1,1

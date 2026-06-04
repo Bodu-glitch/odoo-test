@@ -1,0 +1,84 @@
+// Knowledge CE - Article form styling
+
+.o_knowledge_article_form {
+    .o_form_sheet_bg {
+        background-color: #ffffff;
+    }
+
+    .o_form_sheet {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 32px 48px;
+    }
+
+    .o_knowledge_article_wrapper {
+        .o_knowledge_article_header {
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 24px;
+
+            .o_knowledge_icon .o_field_widget input,
+            .o_knowledge_icon .o_field_widget .o_field_char {
+                font-size: 2rem;
+                width: 2.8rem;
+                border: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                text-align: center;
+                padding: 0;
+                cursor: pointer;
+            }
+
+            .o_knowledge_title .o_field_widget input,
+            .o_knowledge_title .o_field_widget .o_field_char {
+                font-size: 2rem;
+                font-weight: 700;
+                border: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                padding: 0;
+                color: #1a1a1a;
+
+                &::placeholder {
+                    color: #b0b0b0;
+                }
+            }
+        }
+
+        .o_knowledge_body {
+            .o_field_html {
+                border: none;
+                box-shadow: none;
+
+                .odoo-editor-editable {
+                    min-height: 480px;
+                    padding: 8px 0;
+                    font-size: 15px;
+                    line-height: 1.7;
+                    color: #222;
+
+                    p {
+                        margin-bottom: 0.75rem;
+                    }
+
+                    h1, h2, h3 {
+                        font-weight: 600;
+                        margin-top: 1.5rem;
+                        margin-bottom: 0.5rem;
+                    }
+                }
+            }
+        }
+    }
+
+    // Chatter styling - make it consistent
+    .o_chatter {
+        border-top: 2px solid #f0f0f0;
+        margin-top: 24px;
+    }
+}
+
+// List view tweaks for Knowledge
+.o_knowledge_article_form .o_form_view_container {
+    background: #fff;
+}

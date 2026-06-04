@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_team_view_list" model="ir.ui.view">
+        <field name="name">helpdesk.team.list</field>
+        <field name="model">helpdesk.team</field>
+        <field name="arch" type="xml">
+            <tree string="Helpdesk Teams">
+                <field name="name"/>
+                <field name="alias_email" string="Email Alias"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="helpdesk_team_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.team.form</field>
+        <field name="model">helpdesk.team</field>
+        <field name="arch" type="xml">
+            <form string="Helpdesk Team">
+                <header>
+                    <button name="action_open_tickets" type="object" class="oe_stat_button" icon="fa-life-ring">
+                        <div class="o_stat_info">
+                            <span class="o_stat_value"><field name="ticket_count"/></span>
+                            <span class="o_stat_text">Tickets</span>
+                        </div>
+                    </button>
+                    <button name="action_open_sla_policies" type="object" class="oe_stat_button" icon="fa-calendar-check-o">
+                        <div class="o_stat_info">
+                            <span class="o_stat_value"><field name="sla_policy_count"/></span>
+                            <span class="o_stat_text">SLA Policies</span>
+                        </div>
+                    </button>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Name"/>
+                        <h1><field name="name" placeholder="e.g. Customer Care"/></h1>
+                    </div>
+                    <field name="description" placeholder="Describe your team to your colleagues and customers..."/>
+
+                    <separator string="Visibility &amp; Assignment"/>
+                    <group>
+                        <group>
+                            <field name="visibility" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="member_ids" widget="many2many_tags"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+
+                    <separator string="Channels"/>
+                    <group>
+                        <group>
+                            <field name="use_alias" string="Email Alias"/>
+                            <div invisible="not use_alias" class="o_row">
+                                <label for="alias_name" string="Alias"/>
+                                <field name="alias_name" class="oe_inline"/>
+                            </div>
+                        </group>
+                    </group>
+
+                    <separator string="Stages"/>
+                    <field name="stage_ids" widget="many2many_tags"
+                           options="{'no_create': True}"/>
+
+                    <separator string="SLA"/>
+                    <group>
+                        <field name="use_sla" string="SLA Policies"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>
+

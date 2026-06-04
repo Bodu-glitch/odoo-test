@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="helpdesk_ce.HelpdeskOverview">
+        <div class="o_helpdesk_overview">
+            <!-- Top stats bar -->
+            <div class="o_helpdesk_overview_header d-flex align-items-center px-4 py-3 border-bottom bg-white">
+                <h4 class="me-auto mb-0">Helpdesk Overview</h4>
+            </div>
+
+            <!-- My Tickets + My Performance -->
+            <div class="o_helpdesk_overview_stats px-4 py-3 bg-white border-bottom">
+                <div class="row g-3">
+                    <!-- My Tickets -->
+                    <div class="col-auto">
+                        <strong>My Tickets</strong>
+                        <div class="text-muted small">Open Tickets</div>
+                        <div class="d-flex gap-2 mt-2">
+                            <button class="btn btn-secondary" t-on-click="() => this.openMyTickets()">
+                                <span t-esc="state.myStats.total"/> Tickets
+                            </button>
+                            <button class="btn btn-secondary" t-on-click="() => this.openMyTickets('2')">
+                                <i class="fa fa-star text-warning"/> <i class="fa fa-star text-warning"/>
+                                <span t-esc="state.myStats.high_priority"/> High Priority
+                            </button>
+                            <div class="text-center">
+                                <i class="fa fa-star text-warning"/>
+                                <i class="fa fa-star text-warning"/>
+                                <i class="fa fa-star text-warning"/>
+                                <div><span t-esc="state.myStats.urgent"/> Urgent</div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 text-center">
+                            <div class="col">
+                                <div class="fw-bold" t-esc="state.myStats.avg_open"/>
+                                <div class="text-muted small">Avg Open Hours</div>
+                            </div>
+                            <div class="col">
+                                <div class="fw-bold" t-esc="state.myStats.total"/>
+                                <div class="text-muted small">Failed Tickets</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- My Performance -->
+                    <div class="col-auto border-start ps-4">
+                        <strong>My Performance</strong>
+                        <div class="row mt-2">
+                            <div class="col text-center">
+                                <div class="fw-bold" t-esc="state.myStats.closed_today"/>
+                                <div class="text-muted small">Closed Tickets</div>
+                                <div class="text-muted small">Today</div>
+                            </div>
+                            <div class="col text-center">
+                                <div class="fw-bold">/ %</div>
+                                <div class="text-muted small">SLA Success Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teams -->
+            <div class="o_helpdesk_overview_teams d-flex flex-wrap gap-3 p-4">
+                <t t-foreach="state.teams" t-as="team" t-key="team.id">
+                    <div class="o_helpdesk_team_card card" style="min-width: 280px; max-width: 320px;">
+                        <div class="card-body">
+                            <h5 class="card-title mb-1" t-esc="team.name"/>
+                            <t t-if="team.alias_email">
+                                <a t-att-href="'mailto:' + team.alias_email" class="text-muted small">
+                                    <i class="fa fa-envelope me-1"/><t t-esc="team.alias_email"/>
+                                </a>
+                            </t>
+                            <div class="mt-3">
+                                <button class="btn btn-primary btn-sm"
+                                        t-on-click="() => this.openTeamTickets(team.id)">
+                                    Tickets
+                                </button>
+                                <span class="ms-auto float-end text-muted small">
+                                    Tickets Closed <span t-esc="team.closed_ticket_count"/>
+                                </span>
+                            </div>
+                            <div class="row text-center mt-3">
+                                <div class="col">
+                                    <span class="fw-bold text-primary" t-esc="team.open_ticket_count"/>
+                                    <div class="text-muted small">Open</div>
+                                </div>
+                                <div class="col">
+                                    <span class="fw-bold text-warning" t-esc="team.unassigned_ticket_count"/>
+                                    <div class="text-muted small">Unassigned</div>
+                                </div>
+                                <div class="col">
+                                    <span class="fw-bold text-danger" t-esc="team.urgent_ticket_count"/>
+                                    <div class="text-muted small">Urgent</div>
+                                </div>
+                                <div class="col">
+                                    <span class="fw-bold text-muted">0</span>
+                                    <div class="text-muted small">Failed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

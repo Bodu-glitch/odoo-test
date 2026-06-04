@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     ArticleTreeItem — one row in the sidebar (recursive)
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<t t-name="knowledge_dnd.ArticleTreeItem">
+    <div class="o_kn_tree_node">
+
+        <!-- Article row -->
+        <div class="o_kn_item"
+             t-att-class="{ 'o_kn_selected': isSelected }"
+             t-att-style="'padding-left: ' + (depth * 16 + 8) + 'px'"
+             t-on-click="onSelectClick">
+
+            <!-- Expand/collapse arrow -->
+            <span class="o_kn_arrow">
+                <t t-if="hasChildIds">
+                    <i t-on-click.stop="onExpandClick"
+                       t-att-class="isExpanded ? 'fa fa-caret-down' : 'fa fa-caret-right'"/>
+                </t>
+                <t t-else="">
+                    <span style="display:inline-block;width:10px;"/>
+                </t>
+            </span>
+
+            <!-- Emoji icon -->
+            <span class="o_kn_icon" t-esc="props.node.icon or '📄'"/>
+
+            <!-- Article name -->
+            <span class="o_kn_name" t-esc="props.node.name"/>
+
+            <!-- Plus button — hidden, appears on hover via CSS -->
+            <span class="o_kn_plus" t-on-click.stop="onPlusClick" title="New Sub-article">
+                <i class="fa fa-plus"/>
+            </span>
+        </div>
+
+        <!-- Recursive children -->
+        <div t-if="isExpanded and children.length">
+            <t t-foreach="children" t-as="child" t-key="child.id">
+                <ArticleTreeItem
+                    node="child"
+                    depth="depth + 1"
+                    tree="props.tree"
+                    onSelect="props.onSelect"
+                    onPlus="props.onPlus"
+                    onExpand="props.onExpand"
+                />
+            </t>
+        </div>
+    </div>
+</t>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     KnowledgeApp — main client action layout
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<t t-name="knowledge_dnd.KnowledgeApp">
+    <div class="o_knowledge_app">
+
+        <!-- ════════ LEFT SIDEBAR ════════ -->
+        <div class="o_knowledge_sidebar">
+
+            <!-- Top: New Article + Search -->
+            <div class="o_sidebar_top">
+                <button class="o_new_article_btn" t-on-click="() => this.createRootArticle()">
+                    <i class="fa fa-plus"/> New Article
+                </button>
+                <button class="o_sidebar_search_btn" title="Search">
+                    <i class="fa fa-search"/>
+                </button>
+            </div>
+
+            <!-- ── Favorites section (only when populated) ── -->
+            <t t-if="state.favorites.length">
+                <div class="o_sidebar_section">
+                    <div class="o_section_label">Favorites</div>
+                    <t t-foreach="state.favorites" t-as="node" t-key="node.id">
+                        <ArticleTreeItem
+                            node="node"
+                            depth="0"
+                            tree="tree"
+                            onSelect="(n) => this.selectArticle(n)"
+                            onPlus="(n) => this.createChildArticle(n)"
+                            onExpand="(id) => this.loadChildren(id)"
+                        />
+                    </t>
+                </div>
+            </t>
+
+            <!-- ── Workspace section (always visible) ── -->
+            <div class="o_sidebar_section">
+                <div class="o_section_header">
+                    <span class="o_section_label">Workspace</span>
+                    <span class="o_section_add_btn"
+                          t-on-click.stop="() => this.createCategoryArticle('workspace')"
+                          title="New Workspace Article">
+                        <i class="fa fa-plus"/>
+                    </span>
+                </div>
+                <t t-if="state.workspace.length">
+                    <t t-foreach="state.workspace" t-as="node" t-key="node.id">
+                        <ArticleTreeItem
+                            node="node"
+                            depth="0"
+                            tree="tree"
+                            onSelect="(n) => this.selectArticle(n)"
+                            onPlus="(n) => this.createChildArticle(n)"
+                            onExpand="(id) => this.loadChildren(id)"
+                        />
+                    </t>
+                </t>
+                <t t-else="">
+                    <div class="o_sidebar_empty_hint">No articles yet</div>
+                </t>
+            </div>
+
+            <!-- ── Private section (always visible) ── -->
+            <div class="o_sidebar_section">
+                <div class="o_section_header">
+                    <span class="o_section_label">Private</span>
+                    <span class="o_section_add_btn"
+                          t-on-click.stop="() => this.createCategoryArticle('private')"
+                          title="New Private Article">
+                        <i class="fa fa-plus"/>
+                    </span>
+                </div>
+                <t t-if="state.private.length">
+                    <t t-foreach="state.private" t-as="node" t-key="node.id">
+                        <ArticleTreeItem
+                            node="node"
+                            depth="0"
+                            tree="tree"
+                            onSelect="(n) => this.selectArticle(n)"
+                            onPlus="(n) => this.createChildArticle(n)"
+                            onExpand="(id) => this.loadChildren(id)"
+                        />
+                    </t>
+                </t>
+                <t t-else="">
+                    <div class="o_sidebar_empty_hint">No articles yet</div>
+                </t>
+            </div>
+
+            <!-- ── Bottom links ── -->
+            <div class="o_sidebar_bottom">
+                <div class="o_sidebar_bottom_link">
+                    <i class="fa fa-magic"/> Browse Templates
+                </div>
+                <div class="o_sidebar_bottom_link">
+                    <i class="fa fa-trash"/> Open the Trash
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════ RIGHT MAIN AREA ════════ -->
+        <div class="o_knowledge_main">
+
+            <!-- ── Loading spinner ── -->
+            <t t-if="state.loading">
+                <div class="o_kn_loading">
+                    <i class="fa fa-spinner fa-spin fa-2x text-muted"/>
+                </div>
+            </t>
+
+            <!-- ── Article list (default home view) ── -->
+            <t t-elif="state.showList">
+                <div class="o_kn_list_view">
+                    <div class="o_kn_list_header">
+                        <h5 class="o_kn_list_title">Articles</h5>
+                        <input type="text"
+                               class="o_kn_search_input form-control form-control-sm"
+                               placeholder="Search..."
+                               t-model="state.searchQuery"/>
+                    </div>
+
+                    <table class="o_kn_article_table">
+                        <thead>
+                            <tr>
+                                <th class="col-name">Name</th>
+                                <th class="col-parent">Parent Article</th>
+                                <th class="col-author">Created by</th>
+                                <th class="col-date">Created on</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="!filteredArticles.length">
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-5">No articles found</td>
+                                </tr>
+                            </t>
+                            <t t-foreach="filteredArticles" t-as="article" t-key="article.id">
+                                <tr class="o_kn_article_row"
+                                    t-on-click="() => this.selectArticle(article)">
+                                    <td class="col-name">
+                                        <span class="o_row_icon" t-esc="article.icon or '📄'"/>
+                                        <span class="o_row_name" t-esc="article.name"/>
+                                        <span class="o_row_star ms-2">
+                                            <i t-att-class="article.is_favorite ? 'fa fa-star text-warning' : 'fa fa-star-o text-muted'"/>
+                                        </span>
+                                    </td>
+                                    <td class="col-parent text-muted">
+                                        <t t-if="article.parent_id">
+                                            <span class="me-1">📄</span>
+                                            <t t-esc="article.parent_id[1]"/>
+                                        </t>
+                                    </td>
+                                    <td class="col-author text-muted" t-esc="article.author_id and article.author_id[1] or ''"/>
+                                    <td class="col-date text-muted" t-esc="formatDate(article.create_date)"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+
+            <!-- ── Article detail view ── -->
+            <t t-elif="state.article">
+                <!-- Top bar: breadcrumb (left) + action buttons (right) -->
+                <div class="o_kn_topbar">
+                    <div class="o_kn_topbar_breadcrumb">
+                        <span class="o_kn_topbar_icon" t-esc="articleIcon"/>
+                        <span class="o_kn_topbar_name" t-esc="state.article.name"/>
+                        <i class="fa fa-cloud text-muted ms-2 o_kn_saved_icon" title="Saved"/>
+                    </div>
+
+                    <!-- Right-side action buttons -->
+                    <div class="o_kn_topbar_actions">
+                        <button class="o_kn_share_btn">Share</button>
+                        <button class="o_kn_action_icon_btn" title="Comments">
+                            <i class="fa fa-comment-o"/>
+                        </button>
+                        <button class="o_kn_action_icon_btn o_kn_fav_btn"
+                                t-on-click="() => this.toggleFavorite()"
+                                t-att-title="state.article.is_favorite ? 'Remove from Favorites' : 'Add to Favorites'">
+                            <i t-att-class="state.article.is_favorite ? 'fa fa-star o_kn_star_active' : 'fa fa-star-o'"/>
+                        </button>
+                        <button class="o_kn_action_icon_btn" title="More options">
+                            <i class="fa fa-ellipsis-h"/>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Article content area -->
+                <div class="o_kn_article_content">
+                    <!-- Large emoji icon -->
+                    <div class="o_kn_article_big_icon" t-esc="articleIcon"/>
+
+                    <!-- Editable title -->
+                    <div t-ref="title"
+                         class="o_kn_article_title"
+                         contenteditable="true"
+                         t-on-blur="(ev) => this.saveTitle(ev)"
+                         t-on-keydown="(ev) => this.onTitleKeydown(ev)"
+                         spellcheck="false"/>
+
+                    <!-- Author info + category selector -->
+                    <div class="o_kn_article_meta" t-if="state.article.author_id">
+                        <img class="o_kn_author_avatar"
+                             t-att-src="'/web/image/res.users/' + state.article.author_id[0] + '/avatar_128'"
+                             t-att-alt="state.article.author_id[1]"/>
+                        <span class="o_kn_author_name" t-esc="state.article.author_id[1]"/>
+                        <span class="o_kn_meta_dot">·</span>
+                        <span class="o_kn_meta_date">Modified <t t-esc="formatDate(state.article.write_date)"/></span>
+                        <span class="o_kn_meta_dot">·</span>
+
+                        <!-- Category badge / dropdown -->
+                        <div class="o_kn_cat_wrapper" t-on-click.stop="(ev) => this.toggleCategoryMenu(ev)">
+                            <span t-att-class="'o_kn_cat_badge o_kn_cat_' + state.article.category">
+                                <t t-if="state.article.category === 'workspace'">🌐 Workspace</t>
+                                <t t-elif="state.article.category === 'private'">🔒 Private</t>
+                                <t t-else="">👥 Shared</t>
+                                <i class="fa fa-caret-down ms-1"/>
+                            </span>
+                            <div class="o_kn_cat_dropdown" t-if="state.showCategoryMenu">
+                                <div class="o_kn_cat_option" t-on-click.stop="() => this.changeCategory('private')">
+                                    🔒 Private
+                                </div>
+                                <div class="o_kn_cat_option" t-on-click.stop="() => this.changeCategory('workspace')">
+                                    🌐 Workspace
+                                </div>
+                                <div class="o_kn_cat_option" t-on-click.stop="() => this.changeCategory('shared')">
+                                    👥 Shared
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article body — contenteditable, auto-saves after typing -->
+                    <div t-ref="body"
+                         class="o_kn_article_body"
+                         contenteditable="true"
+                         spellcheck="false"
+                         t-on-input="() => this.onBodyInput()"
+                         t-on-blur="() => this.saveBody()"/>
+                </div>
+            </t>
+
+        </div>
+    </div>
+</t>
+
+</templates>

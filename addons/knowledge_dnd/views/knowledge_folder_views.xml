@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ───────────── FOLDER LIST VIEW ───────────── -->
+    <record id="knowledge_folder_list_view" model="ir.ui.view">
+        <field name="name">knowledge.folder.list</field>
+        <field name="model">knowledge.folder</field>
+        <field name="arch" type="xml">
+            <tree string="Folders">
+                <field name="icon" string=" " optional="show"/>
+                <field name="name" string="Folder Name"/>
+                <field name="parent_id" optional="hide"/>
+                <field name="article_count" string="Articles"/>
+                <field name="sequence" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ───────────── FOLDER FORM VIEW ───────────── -->
+    <record id="knowledge_folder_form_view" model="ir.ui.view">
+        <field name="name">knowledge.folder.form</field>
+        <field name="model">knowledge.folder</field>
+        <field name="arch" type="xml">
+            <form string="Folder">
+                <sheet>
+                    <group>
+                        <group string="Details">
+                            <field name="name"/>
+                            <field name="icon" placeholder="📁"/>
+                            <field name="parent_id"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group string="Stats">
+                            <field name="article_count" string="Articles" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Sub-folders" name="children">
+                            <field name="child_ids">
+                                <tree>
+                                    <field name="icon" string=" "/>
+                                    <field name="name"/>
+                                    <field name="article_count" string="Articles"/>
+                                    <field name="sequence"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Articles" name="articles">
+                            <field name="article_ids">
+                                <tree>
+                                    <field name="icon" string=" "/>
+                                    <field name="name"/>
+                                    <field name="category" widget="badge"
+                                           decoration-success="category == 'workspace'"
+                                           decoration-info="category == 'shared'"
+                                           decoration-muted="category == 'private'"/>
+                                    <field name="author_id" widget="many2one_avatar_user"/>
+                                    <field name="write_date" string="Modified"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ───────────── EXTEND ARTICLE FORM ───────────── -->
+    <record id="knowledge_article_form_folder_ext" model="ir.ui.view">
+        <field name="name">knowledge.article.form.folder</field>
+        <field name="model">knowledge.article</field>
+        <field name="inherit_id" ref="knowledge_ce.knowledge_article_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Remove entire header (all buttons + status bar) -->
+            <xpath expr="//header" position="replace"/>
+            <!-- Remove all notebook tabs (Organization, Members, Sub-articles) -->
+            <xpath expr="//notebook" position="replace"/>
+            <!-- Remove chatter panel (Send message, Log note, Activities) -->
+            <xpath expr="//div[contains(@class,'oe_chatter')]" position="replace"/>
+            <!-- Replace author line with clean version: avatar + name · Modified [date only] -->
+            <xpath expr="//field[@name='author_id'][@widget='many2one_avatar_user']/.." position="replace">
+                <div class="o_kn_form_author_line">
+                    <field name="author_id" widget="many2one_avatar_user"
+                           options="{'no_open': True}" readonly="1"/>
+                    <span class="o_kn_sep">&#183;</span>
+                    <field name="write_date" widget="datetime" readonly="1"
+                           options="{'format': 'MMM d, yyyy'}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ───────────── EXTEND ARTICLE LIST (match Image 2) ───────────── -->
+    <record id="knowledge_article_list_folder_ext" model="ir.ui.view">
+        <field name="name">knowledge.article.list.folder</field>
+        <field name="model">knowledge.article</field>
+        <field name="inherit_id" ref="knowledge_ce.knowledge_article_list_view"/>
+        <field name="arch" type="xml">
+            <!-- Show parent_id by default (not hidden) -->
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <!-- Replace write_date (Last Modified) with create_date (Created on) -->
+            <xpath expr="//field[@name='write_date']" position="replace">
+                <field name="create_date" string="Created on" widget="datetime" optional="show"/>
+            </xpath>
+            <!-- Move author_id label to "Created by" -->
+            <xpath expr="//field[@name='author_id']" position="attributes">
+                <attribute name="string">Created by</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ───────────── CLIENT ACTION: KNOWLEDGE EXPLORER ───────────── -->
+    <record id="knowledge_explorer_action" model="ir.actions.client">
+        <field name="name">Knowledge Explorer</field>
+        <field name="tag">knowledge_dnd.main</field>
+    </record>
+
+    <!-- ───────────── FOLDER MANAGEMENT ACTION ───────────── -->
+    <record id="knowledge_folder_action" model="ir.actions.act_window">
+        <field name="name">Folders</field>
+        <field name="res_model">knowledge.folder</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first folder</p>
+            <p>Organize your articles into folders and sub-folders.</p>
+        </field>
+    </record>
+
+</odoo>

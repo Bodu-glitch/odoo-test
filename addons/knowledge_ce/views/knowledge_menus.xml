@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="knowledge_root_menu"
+              name="Knowledge"
+              sequence="60"
+              groups="knowledge_ce.knowledge_group_user"/>
+
+    <menuitem id="knowledge_workspace_menu"
+              name="Workspace"
+              parent="knowledge_root_menu"
+              action="knowledge_article_action_workspace"
+              sequence="10"/>
+
+    <menuitem id="knowledge_my_articles_menu"
+              name="My Articles"
+              parent="knowledge_root_menu"
+              action="knowledge_article_action_my"
+              sequence="20"/>
+
+    <menuitem id="knowledge_favorites_menu"
+              name="Favorites"
+              parent="knowledge_root_menu"
+              action="knowledge_article_action_favorites"
+              sequence="30"/>
+
+    <menuitem id="knowledge_all_articles_menu"
+              name="All Articles"
+              parent="knowledge_root_menu"
+              action="knowledge_article_action_all"
+              sequence="40"/>
+
+</odoo>

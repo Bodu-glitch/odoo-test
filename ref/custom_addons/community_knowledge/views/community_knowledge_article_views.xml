@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="community_knowledge_article_view_hierarchy" model="ir.ui.view">
+        <field name="name">community.knowledge.article.view.hierarchy</field>
+        <field name="model">community.knowledge.article</field>
+        <field name="arch" type="xml">
+            <hierarchy child_field="child_ids" icon="fa-book" draggable="1">
+                <field name="name"/>
+                <field name="color"/>
+                <field name="owner_id"/>
+                <field name="child_count"/>
+                <field name="access_mode"/>
+                <templates>
+                    <t t-name="hierarchy-box">
+                        <div t-attf-class="o_hierarchy_node_header d-flex justify-content-center align-items-center o_hierarchy_node_color_{{ record.color.raw_value }}">
+                            <field name="name"/>
+                        </div>
+                        <div class="o_hierarchy_node_body d-flex flex-column gap-1">
+                            <field name="owner_id" widget="many2one_avatar_user"/>
+                            <span class="text-muted">
+                                <t t-out="record.child_count.raw_value"/> sub articles
+                            </span>
+                        </div>
+                    </t>
+                </templates>
+            </hierarchy>
+        </field>
+    </record>
+
+    <record id="community_knowledge_article_view_kanban" model="ir.ui.view">
+        <field name="name">community.knowledge.article.view.kanban</field>
+        <field name="model">community.knowledge.article</field>
+        <field name="arch" type="xml">
+            <kanban highlight_color="color" default_group_by="parent_id" class="o_kanban_small_column" sample="1">
+                <field name="color"/>
+                <field name="name"/>
+                <field name="body_summary"/>
+                <field name="tag_ids"/>
+                <field name="owner_id"/>
+                <field name="access_mode"/>
+                <field name="is_favorite"/>
+                <templates>
+                    <t t-name="menu">
+                        <field name="color" widget="kanban_color_picker"/>
+                    </t>
+                    <t t-name="card">
+                        <div class="d-flex align-items-start gap-2">
+                            <field name="is_favorite" widget="boolean_favorite" nolabel="1"/>
+                            <div class="flex-grow-1">
+                                <field name="name" class="fw-bold fs-5"/>
+                                <div class="text-muted mt-1" invisible="not body_summary">
+                                    <field name="body_summary"/>
+                                </div>
+                            </div>
+                        </div>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" class="mt-2"/>
+                        <div class="d-flex align-items-center justify-content-between mt-3">
+                            <field name="owner_id" widget="many2one_avatar_user"/>
+                            <field name="access_mode" widget="badge" decoration-info="access_mode == 'internal'" decoration-warning="access_mode == 'private'"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="community_knowledge_article_view_list" model="ir.ui.view">
+        <field name="name">community.knowledge.article.view.list</field>
+        <field name="model">community.knowledge.article</field>
+        <field name="arch" type="xml">
+            <list string="Knowledge Articles" multi_edit="1" default_order="sequence, complete_name">
+                <field name="sequence" widget="handle"/>
+                <field name="is_favorite" widget="boolean_favorite" nolabel="1" width="30px"/>
+                <field name="complete_name" string="Article"/>
+                <field name="parent_id" optional="hide"/>
+                <field name="owner_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="show"/>
+                <field name="access_mode" widget="badge" decoration-info="access_mode == 'internal'" decoration-warning="access_mode == 'private'" optional="show"/>
+                <field name="write_date" optional="show"/>
+                <field name="activity_ids" widget="list_activity" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="community_knowledge_article_view_form" model="ir.ui.view">
+        <field name="name">community.knowledge.article.view.form</field>
+        <field name="model">community.knowledge.article</field>
+        <field name="arch" type="xml">
+            <form string="Knowledge Article">
+                <header>
+                    <button name="action_toggle_favorite" type="object" string="Add Favorite" icon="fa-star-o" class="btn-secondary" invisible="is_favorite"/>
+                    <button name="action_toggle_favorite" type="object" string="Remove Favorite" icon="fa-star" class="btn-secondary" invisible="not is_favorite"/>
+                    <button name="action_view_children" type="object" string="Sub Articles" icon="fa-sitemap" class="btn-secondary" invisible="child_count == 0"/>
+                    <field name="access_mode" widget="statusbar" statusbar_visible="internal,private"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <field name="is_favorite" invisible="1"/>
+                    <field name="child_count" invisible="1"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Article title..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="parent_id" context="{'default_access_mode': access_mode}"/>
+                            <field name="owner_id" widget="many2one_avatar_user"/>
+                            <field name="member_ids" widget="many2many_avatar_user"/>
+                        </group>
+                        <group>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': False}"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Content">
+                            <field name="body" type="html" class="oe_description" options="{'resizable': false}" placeholder="Write your knowledge here..."/>
+                        </page>
+                        <page string="Sub Articles" invisible="not id">
+                            <field name="child_ids" context="{'default_parent_id': id, 'default_access_mode': access_mode}">
+                                <list string="Sub Articles" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="owner_id" widget="many2one_avatar_user"/>
+                                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    <field name="access_mode"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="community_knowledge_article_view_activity" model="ir.ui.view">
+        <field name="name">community.knowledge.article.view.activity</field>
+        <field name="model">community.knowledge.article</field>
+        <field name="arch" type="xml">
+            <activity string="Knowledge Articles">
+                <field name="owner_id"/>
+                <templates>
+                    <div t-name="activity-box" class="d-flex align-items-center justify-content-between w-100">
+                        <field name="name" class="fw-bold"/>
+                        <field name="owner_id" widget="many2one_avatar_user"/>
+                    </div>
+                </templates>
+            </activity>
+        </field>
+    </record>
+
+    <record id="community_knowledge_article_view_search" model="ir.ui.view">
+        <field name="name">community.knowledge.article.view.search</field>
+        <field name="model">community.knowledge.article</field>
+        <field name="arch" type="xml">
+            <search string="Knowledge">
+                <field name="name"/>
+                <field name="body"/>
+                <field name="tag_ids"/>
+                <field name="owner_id"/>
+                <field name="parent_id"/>
+                <filter name="favorite" string="Favorites" domain="[('favorite_user_ids', 'in', [uid])]"/>
+                <filter name="my_articles" string="My Articles" domain="[('owner_id', '=', uid)]"/>
+                <filter name="workspace" string="Workspace" domain="[('access_mode', '=', 'internal')]"/>
+                <filter name="private" string="Private" domain="[('access_mode', '=', 'private')]"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_parent" string="Parent" context="{'group_by': 'parent_id'}"/>
+                    <filter name="group_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_tag" string="Tags" context="{'group_by': 'tag_ids'}"/>
+                    <filter name="group_access" string="Visibility" context="{'group_by': 'access_mode'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_community_knowledge_articles" model="ir.actions.act_window">
+        <field name="name">Articles</field>
+        <field name="res_model">community.knowledge.article</field>
+        <field name="path">knowledge-articles</field>
+        <field name="view_mode">hierarchy,kanban,list,form,activity</field>
+        <field name="mobile_view_mode">kanban</field>
+        <field name="search_view_id" ref="community_knowledge_article_view_search"/>
+        <field name="context">{'search_default_workspace': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first knowledge article.
+            </p>
+            <p>
+                Use articles to document procedures, policies, course notes, and team know-how.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_community_knowledge_home" model="ir.actions.client">
+        <field name="name">Knowledge</field>
+        <field name="tag">community_knowledge.home</field>
+        <field name="path">knowledge</field>
+    </record>
+
+    <record id="action_community_knowledge_favorites" model="ir.actions.act_window">
+        <field name="name">Favorites</field>
+        <field name="res_model">community.knowledge.article</field>
+        <field name="path">knowledge-favorites</field>
+        <field name="view_mode">kanban,list,form,activity</field>
+        <field name="search_view_id" ref="community_knowledge_article_view_search"/>
+        <field name="domain">[('favorite_user_ids', 'in', [uid])]</field>
+    </record>
+
+    <record id="action_community_knowledge_private" model="ir.actions.act_window">
+        <field name="name">Private</field>
+        <field name="res_model">community.knowledge.article</field>
+        <field name="path">knowledge-private</field>
+        <field name="view_mode">kanban,list,form,activity</field>
+        <field name="search_view_id" ref="community_knowledge_article_view_search"/>
+        <field name="domain">[('access_mode', '=', 'private')]</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_community_knowledge_articles_hierarchy_view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">hierarchy</field>
+        <field name="view_id" ref="community_knowledge_article_view_hierarchy"/>
+        <field name="act_window_id" ref="action_community_knowledge_articles"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_community_knowledge_articles_kanban_view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="community_knowledge_article_view_kanban"/>
+        <field name="act_window_id" ref="action_community_knowledge_articles"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_community_knowledge_articles_list_view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="community_knowledge_article_view_list"/>
+        <field name="act_window_id" ref="action_community_knowledge_articles"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_community_knowledge_articles_form_view">
+        <field name="sequence" eval="4"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="community_knowledge_article_view_form"/>
+        <field name="act_window_id" ref="action_community_knowledge_articles"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_community_knowledge_articles_activity_view">
+        <field name="sequence" eval="5"/>
+        <field name="view_mode">activity</field>
+        <field name="view_id" ref="community_knowledge_article_view_activity"/>
+        <field name="act_window_id" ref="action_community_knowledge_articles"/>
+    </record>
+</odoo>

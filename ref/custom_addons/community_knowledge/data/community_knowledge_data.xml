@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="community_knowledge_tag_process" model="community.knowledge.tag">
+        <field name="name">Process</field>
+        <field name="color">2</field>
+    </record>
+
+    <record id="community_knowledge_tag_policy" model="community.knowledge.tag">
+        <field name="name">Policy</field>
+        <field name="color">3</field>
+    </record>
+
+    <record id="community_knowledge_article_welcome" model="community.knowledge.article">
+        <field name="name">Welcome to Knowledge</field>
+        <field name="owner_id" ref="base.user_admin"/>
+        <field name="access_mode">internal</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('community_knowledge_tag_process')])]"/>
+        <field name="body" type="html">
+            <h2>Welcome to Knowledge</h2>
+            <p>This community module gives your team a simple place to write, organize, and search internal articles.</p>
+            <ul>
+                <li>Create parent and sub articles for structure.</li>
+                <li>Use tags to group content by topic.</li>
+                <li>Mark important articles as favorites.</li>
+                <li>Switch visibility to Private when an article should only be available to its owner and extra editors.</li>
+            </ul>
+        </field>
+    </record>
+</odoo>

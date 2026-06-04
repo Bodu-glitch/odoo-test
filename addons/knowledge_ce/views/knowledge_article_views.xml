@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ───────────── LIST (TREE) VIEW ───────────── -->
+    <record id="knowledge_article_list_view" model="ir.ui.view">
+        <field name="name">knowledge.article.list</field>
+        <field name="model">knowledge.article</field>
+        <field name="arch" type="xml">
+            <tree string="Articles" multi_edit="1">
+                <field name="icon" optional="show" string=" "/>
+                <field name="name" string="Title"/>
+                <field name="parent_id" optional="hide"/>
+                <field name="category" widget="badge"
+                       decoration-success="category == 'workspace'"
+                       decoration-info="category == 'shared'"
+                       decoration-muted="category == 'private'"/>
+                <field name="author_id" widget="many2one_avatar_user"/>
+                <field name="last_edition_uid" optional="hide" string="Edited by"/>
+                <field name="write_date" string="Last Modified"/>
+                <field name="child_count" string="Sub-articles" optional="show"/>
+                <field name="workspace_dimension" widget="badge" optional="show"
+                       decoration-info="workspace_dimension == 'it'"
+                       decoration-success="workspace_dimension == 'ops'"
+                       decoration-warning="workspace_dimension == 'hr'"
+                       decoration-danger="workspace_dimension == 'legal'"/>
+                <field name="tag_ids" widget="many2many_tags" optional="show"/>
+                <field name="is_favorite" widget="boolean_favorite" optional="show"/>
+                <field name="active" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ───────────── FORM VIEW ───────────── -->
+    <record id="knowledge_article_form_view" model="ir.ui.view">
+        <field name="name">knowledge.article.form</field>
+        <field name="model">knowledge.article</field>
+        <field name="arch" type="xml">
+            <form class="o_knowledge_article_form" string="Article">
+                <header>
+                    <button name="action_toggle_favorite" type="object"
+                            string="☆ Add to Favorites"
+                            invisible="is_favorite"
+                            class="btn-secondary"/>
+                    <button name="action_toggle_favorite" type="object"
+                            string="★ Remove from Favorites"
+                            invisible="not is_favorite"
+                            class="btn-warning"/>
+                    <button name="action_new_subarticle" type="object"
+                            string="+ Sub-article"
+                            class="btn-secondary"/>
+                    <button name="action_open_children" type="object"
+                            string="View Sub-articles"
+                            invisible="child_count == 0"
+                            class="btn-secondary"/>
+                    <field name="category" widget="statusbar"
+                           statusbar_visible="private,shared,workspace"
+                           clickable="1"/>
+                </header>
+                <sheet>
+                    <!-- Fields needed for invisible expressions -->
+                    <field name="is_favorite" invisible="1"/>
+                    <field name="child_count" invisible="1"/>
+                    <div class="o_knowledge_article_wrapper">
+                        <div class="o_knowledge_article_header mb-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <field name="icon"
+                                       class="o_knowledge_icon"
+                                       placeholder="📄"/>
+                                <field name="name"
+                                       class="o_knowledge_title"
+                                       placeholder="Article Title..."/>
+                            </div>
+                            <div class="text-muted small mt-1 d-flex align-items-center flex-wrap">
+                                <field name="author_id"
+                                       widget="many2one_avatar_user"
+                                       options="{'no_open': True}"
+                                       readonly="1"/>
+                                <span class="mx-1">·</span>
+                                <span>Modified </span>
+                                <field name="write_date" widget="datetime" readonly="1"/>
+                                <span class="mx-1" invisible="not last_edition_uid">by</span>
+                                <field name="last_edition_uid"
+                                       options="{'no_open': True}"
+                                       readonly="1"
+                                       invisible="not last_edition_uid"/>
+                            </div>
+                        </div>
+
+                        <field name="body"
+                               widget="html"
+                               placeholder="Start writing your article..."
+                               class="o_knowledge_body"
+                               options="{'height': 600}"/>
+                    </div>
+
+                    <notebook>
+                        <page string="Organization" name="organization">
+                            <group>
+                                <group string="Hierarchy">
+                                    <field name="parent_id"/>
+                                    <field name="sequence"/>
+                                </group>
+                                <group string="Settings">
+                                    <field name="active" widget="boolean_toggle"/>
+                                    <field name="author_id"/>
+                                    <field name="workspace_dimension"/>
+                                    <field name="tag_ids" widget="many2many_tags"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Members" name="members"
+                              invisible="category != 'shared'">
+                            <field name="member_ids">
+                                <tree editable="bottom">
+                                    <field name="partner_id"/>
+                                    <field name="permission"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Sub-articles" name="sub_articles">
+                            <field name="child_ids">
+                                <tree>
+                                    <field name="icon" string=" "/>
+                                    <field name="name"/>
+                                    <field name="category" widget="badge"
+                                           decoration-success="category == 'workspace'"
+                                           decoration-info="category == 'shared'"
+                                           decoration-muted="category == 'private'"/>
+                                    <field name="author_id" widget="many2one_avatar_user"/>
+                                    <field name="write_date" string="Last Modified"/>
+                                    <field name="child_count" string="Sub-articles"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- ───────────── SEARCH VIEW ───────────── -->
+    <record id="knowledge_article_search_view" model="ir.ui.view">
+        <field name="name">knowledge.article.search</field>
+        <field name="model">knowledge.article</field>
+        <field name="arch" type="xml">
+            <search string="Search Articles">
+                <field name="name" string="Title" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="body" string="Content" filter_domain="[('body', 'ilike', self)]"/>
+                <field name="author_id"/>
+                <filter string="My Articles" name="my_articles"
+                        domain="[('author_id', '=', uid)]"/>
+                <filter string="Favorites" name="favorites"
+                        domain="[('is_favorite', '=', True)]"/>
+                <separator/>
+                <filter string="Private" name="filter_private"
+                        domain="[('category', '=', 'private')]"/>
+                <filter string="Shared" name="filter_shared"
+                        domain="[('category', '=', 'shared')]"/>
+                <filter string="Workspace" name="filter_workspace"
+                        domain="[('category', '=', 'workspace')]"/>
+                <separator/>
+                <filter string="Archived" name="archived"
+                        domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Author" name="group_author"
+                            context="{'group_by': 'author_id'}"/>
+                    <filter string="Access Level" name="group_category"
+                            context="{'group_by': 'category'}"/>
+                    <filter string="Parent Article" name="group_parent"
+                            context="{'group_by': 'parent_id'}"/>
+                    <filter string="Month Modified" name="group_date"
+                            context="{'group_by': 'write_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ───────────── ACTIONS ───────────── -->
+    <record id="knowledge_article_action_all" model="ir.actions.act_window">
+        <field name="name">All Articles</field>
+        <field name="res_model">knowledge.article</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="knowledge_article_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first article
+            </p>
+            <p>
+                Build your knowledge base — create articles, organize them into
+                hierarchies, share with the team, or keep them private.
+            </p>
+        </field>
+    </record>
+
+    <record id="knowledge_article_action_my" model="ir.actions.act_window">
+        <field name="name">My Articles</field>
+        <field name="res_model">knowledge.article</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="knowledge_article_search_view"/>
+        <field name="domain">[('author_id', '=', uid)]</field>
+        <field name="context">{'default_category': 'private'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">You have no articles yet</p>
+            <p>Click <strong>New</strong> to create your first article.</p>
+        </field>
+    </record>
+
+    <record id="knowledge_article_action_favorites" model="ir.actions.act_window">
+        <field name="name">Favorites</field>
+        <field name="res_model">knowledge.article</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="knowledge_article_search_view"/>
+        <field name="domain">[('is_favorite', '=', True)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No favorites yet</p>
+            <p>Star articles to add them to your favorites.</p>
+        </field>
+    </record>
+
+    <record id="knowledge_article_action_workspace" model="ir.actions.act_window">
+        <field name="name">Workspace</field>
+        <field name="res_model">knowledge.article</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="knowledge_article_search_view"/>
+        <field name="domain">[('category', '=', 'workspace')]</field>
+        <field name="context">{'default_category': 'workspace'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Workspace is empty</p>
+            <p>Workspace articles are visible to everyone in your company.</p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- "Home" → KnowledgeApp (sidebar + article view) -->
+    <menuitem id="knowledge_dnd_home_menu"
+              name="Home"
+              parent="knowledge_ce.knowledge_root_menu"
+              action="knowledge_explorer_action"
+              sequence="1"/>
+
+    <!-- "Articles" → also opens KnowledgeApp (same experience) -->
+    <menuitem id="knowledge_dnd_articles_menu"
+              name="Articles"
+              parent="knowledge_ce.knowledge_root_menu"
+              action="knowledge_explorer_action"
+              sequence="2"/>
+
+    <!-- Hide old standard list/form menus so they no longer bypass the sidebar -->
+    <record id="knowledge_ce.knowledge_workspace_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="knowledge_ce.knowledge_my_articles_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="knowledge_ce.knowledge_favorites_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="knowledge_ce.knowledge_all_articles_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+</odoo>

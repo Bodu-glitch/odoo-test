@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="community_knowledge.KnowledgeAction">
+        <div class="o_ck_action">
+            <div class="o_ck_topbar">
+                <div class="o_ck_brand">
+                    <img src="/base/static/img/icons/knowledge.png" alt="Knowledge"/>
+                    <span>Knowledge</span>
+                </div>
+                <button class="btn btn-link o_ck_nav active" type="button">Home</button>
+                <button class="btn btn-link o_ck_nav" type="button" t-on-click="openArticles">Articles</button>
+                <span class="o_ck_save_status" t-if="state.saving">Saving...</span>
+            </div>
+
+            <div class="o_ck_workspace">
+                <aside class="o_ck_sidebar">
+                    <div class="o_ck_sidebar_actions">
+                        <button class="btn btn-link o_ck_new_article" type="button" t-on-click="createArticle">
+                            <i class="fa fa-plus"/> New Article
+                        </button>
+                        <div class="o_ck_search">
+                            <i class="fa fa-search"/>
+                            <input type="search" placeholder="Search" t-att-value="state.query" t-on-input="onSearch"/>
+                        </div>
+                    </div>
+
+                    <t t-call="community_knowledge.KnowledgeSidebarSection">
+                        <t t-set="sectionTitle" t-value="'Favorites'"/>
+                        <t t-set="sectionArticles" t-value="favoriteArticles"/>
+                    </t>
+
+                    <t t-call="community_knowledge.KnowledgeSidebarSection">
+                        <t t-set="sectionTitle" t-value="'Workspace'"/>
+                        <t t-set="sectionArticles" t-value="workspaceArticles"/>
+                    </t>
+
+                    <t t-call="community_knowledge.KnowledgeSidebarSection">
+                        <t t-set="sectionTitle" t-value="'Private'"/>
+                        <t t-set="sectionArticles" t-value="privateArticles"/>
+                    </t>
+
+                    <div class="o_ck_sidebar_bottom">
+                        <button class="btn btn-link" type="button" disabled="1">
+                            <i class="fa fa-paint-brush"/> Browse Templates
+                        </button>
+                        <button class="btn btn-link" type="button" t-on-click="openTrash">
+                            <i class="fa fa-trash"/> Open the Trash
+                        </button>
+                    </div>
+                </aside>
+
+                <main class="o_ck_article">
+                    <t t-if="currentArticle">
+                        <div class="o_ck_article_header">
+                            <input class="o_ck_title_input" t-att-value="currentArticle.name" t-on-change="saveTitle"/>
+                            <div class="o_ck_article_tools">
+                                <button class="btn btn-link" type="button" disabled="1">Share</button>
+                                <button class="btn btn-link o_ck_icon_button" type="button" disabled="1" title="Comments">
+                                    <i class="fa fa-comments-o"/>
+                                </button>
+                                <button class="btn btn-link o_ck_icon_button o_ck_favorite" type="button" t-on-click="toggleFavorite" title="Favorite">
+                                    <i class="fa" t-att-class="currentArticle.favorite_user_ids.length ? 'fa-star' : 'fa-star-o'"/>
+                                </button>
+                                <button class="btn btn-link o_ck_icon_button" type="button" disabled="1" title="More">
+                                    <i class="fa fa-ellipsis-v"/>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="o_ck_page">
+                            <input class="o_ck_page_title" t-att-value="currentArticle.name" t-on-change="saveTitle" placeholder="Untitled"/>
+                            <div class="o_ck_meta">
+                                <span t-if="currentArticle.owner_id">
+                                    Owner: <t t-out="currentArticle.owner_id[1]"/>
+                                </span>
+                                <span>
+                                    <t t-out="currentArticle.access_mode === 'private' ? 'Private' : 'Workspace'"/>
+                                </span>
+                            </div>
+                            <div class="o_ck_editor"
+                                 t-key="currentArticle.id"
+                                 t-ref="editor"
+                                 contenteditable="true"
+                                 t-on-blur="saveBody"
+                                 t-out="currentBody"/>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="o_ck_empty">
+                            <h2>No article yet</h2>
+                            <button class="btn btn-primary" type="button" t-on-click="createArticle">Create Article</button>
+                        </div>
+                    </t>
+                </main>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="community_knowledge.KnowledgeSidebarSection">
+        <section class="o_ck_sidebar_section">
+            <h3 t-out="sectionTitle"/>
+            <t t-if="sectionArticles.length">
+                <button t-foreach="sectionArticles" t-as="article" t-key="article.id"
+                        class="btn btn-link o_ck_sidebar_item"
+                        t-att-class="{active: article.id === state.currentId}"
+                        type="button"
+                        t-on-click="() => this.selectArticle(article)">
+                    <i class="fa" t-att-class="article.parent_id ? 'fa-file-text-o' : 'fa-bookmark'"/>
+                    <span t-out="article.name"/>
+                </button>
+            </t>
+            <div t-else="" class="o_ck_sidebar_empty">No articles</div>
+        </section>
+    </t>
+</templates>

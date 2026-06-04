@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_community_knowledge_article_user,community.knowledge.article.user,model_community_knowledge_article,base.group_user,1,1,1,1
+access_community_knowledge_article_manager,community.knowledge.article.manager,model_community_knowledge_article,community_knowledge.group_community_knowledge_manager,1,1,1,1
+access_community_knowledge_tag_user,community.knowledge.tag.user,model_community_knowledge_tag,base.group_user,1,1,1,1
+access_community_knowledge_tag_manager,community.knowledge.tag.manager,model_community_knowledge_tag,community_knowledge.group_community_knowledge_manager,1,1,1,1

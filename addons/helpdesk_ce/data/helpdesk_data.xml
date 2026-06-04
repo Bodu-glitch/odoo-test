@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Ticket sequence -->
+    <record id="seq_helpdesk_ticket" model="ir.sequence">
+        <field name="name">Helpdesk Ticket</field>
+        <field name="code">helpdesk.ticket</field>
+        <field name="prefix">#</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Default stages -->
+    <record id="stage_new" model="helpdesk.stage">
+        <field name="name">New</field>
+        <field name="sequence">1</field>
+        <field name="fold">False</field>
+        <field name="is_close">False</field>
+    </record>
+    <record id="stage_in_progress" model="helpdesk.stage">
+        <field name="name">In Progress</field>
+        <field name="sequence">10</field>
+        <field name="fold">False</field>
+        <field name="is_close">False</field>
+    </record>
+    <record id="stage_on_hold" model="helpdesk.stage">
+        <field name="name">On Hold</field>
+        <field name="sequence">20</field>
+        <field name="fold">False</field>
+        <field name="is_close">False</field>
+    </record>
+    <record id="stage_solved" model="helpdesk.stage">
+        <field name="name">Solved</field>
+        <field name="sequence">30</field>
+        <field name="fold">True</field>
+        <field name="is_close">True</field>
+    </record>
+    <record id="stage_cancelled" model="helpdesk.stage">
+        <field name="name">Cancelled</field>
+        <field name="sequence">40</field>
+        <field name="fold">True</field>
+        <field name="is_close">True</field>
+    </record>
+
+    <!-- Email template for ticket confirmation -->
+    <record id="mail_template_helpdesk_ticket_confirmation" model="mail.template">
+        <field name="name">Helpdesk: Ticket Confirmation</field>
+        <field name="model_id" ref="model_helpdesk_ticket"/>
+        <field name="subject">Your request {{ object.name }} has been received</field>
+        <field name="body_html"><![CDATA[
+<p>Dear {{ object.partner_id.name or 'Customer' }},</p>
+<p>Your request <a href="{{ object.get_portal_url() }}">{{ object.name }}</a> has been received and is being reviewed by our {{ object.team_id.name }} team.</p>
+<p>The reference for your ticket is <strong>{{ object.ticket_ref }}</strong>.</p>
+<p>To provide any additional information, simply reply to this email.</p>
+<p>Best regards,<br/>{{ object.team_id.name }} Team</p>
+        ]]></field>
+        <field name="email_to">{{ object.partner_id.email }}</field>
+        <field name="auto_delete">True</field>
+    </record>
+</odoo>

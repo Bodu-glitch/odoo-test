@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Module category -->
+    <record id="module_knowledge_category" model="ir.module.category">
+        <field name="name">Knowledge</field>
+        <field name="description">Manage your knowledge base</field>
+        <field name="sequence">60</field>
+    </record>
+
+    <!-- Groups -->
+    <record id="knowledge_group_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_knowledge_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="knowledge_group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_knowledge_category"/>
+        <field name="implied_ids" eval="[(4, ref('knowledge_group_user'))]"/>
+    </record>
+
+    <!-- Make all internal users Knowledge Users by default -->
+    <record id="base.group_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('knowledge_ce.knowledge_group_user'))]"/>
+    </record>
+
+    <!--
+        Record rule: regular users can only see/edit:
+          - Workspace articles (everyone)
+          - Their own articles (author)
+          - Articles they're members of (shared)
+        Managers (no rule) = full access via group union
+    -->
+    <record id="knowledge_article_user_rule" model="ir.rule">
+        <field name="name">Knowledge Article: User Visibility</field>
+        <field name="model_id" ref="knowledge_ce.model_knowledge_article"/>
+        <field name="groups" eval="[(4, ref('knowledge_ce.knowledge_group_user'))]"/>
+        <field name="domain_force">
+            ['|', '|',
+                ('category', '=', 'workspace'),
+                ('author_id', '=', user.id),
+                ('member_ids.partner_id', '=', user.partner_id.id)
+            ]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+</odoo>
