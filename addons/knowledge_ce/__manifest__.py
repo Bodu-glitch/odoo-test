@@ -1,6 +1,6 @@
 {
     'name': 'Knowledge',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.1.0',
     'category': 'Productivity/Knowledge',
     'summary': 'Centralize, share, and structure your knowledge base',
     'depends': ['base', 'web', 'mail'],

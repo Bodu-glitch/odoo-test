@@ -26,6 +26,7 @@ class HelpdeskTicket(models.Model):
     stage_id = fields.Many2one(
         'helpdesk.stage', string='Stage', ondelete='restrict',
         group_expand='_read_group_stage_ids',
+        default=lambda self: self._default_stage_id(),
         copy=False, index=True, tracking=True,
     )
     user_id = fields.Many2one(
@@ -53,6 +54,10 @@ class HelpdeskTicket(models.Model):
     sla_fail = fields.Boolean('Failed SLA', compute='_compute_sla_fail', store=True)
 
     @api.model
+    def _default_stage_id(self):
+        return self.env['helpdesk.stage'].search([], order='sequence, id', limit=1)
+
+    @api.model
     def _default_team_id(self):
         team = self.env['helpdesk.team'].search([], limit=1)
         return team.id if team else False
@@ -61,7 +66,8 @@ class HelpdeskTicket(models.Model):
         team_id = self._context.get('default_team_id')
         if team_id:
             team = self.env['helpdesk.team'].browse(team_id)
-            return team.stage_ids.sorted('sequence')
+            if team.stage_ids:
+                return team.stage_ids.sorted('sequence')
         return stages.search([], order=order)
 
     @api.model_create_multi
@@ -71,7 +77,8 @@ class HelpdeskTicket(models.Model):
                 vals['ticket_ref'] = self.env['ir.sequence'].next_by_code('helpdesk.ticket') or '/'
             if vals.get('team_id') and not vals.get('stage_id'):
                 team = self.env['helpdesk.team'].browse(vals['team_id'])
-                first_stage = team.stage_ids.sorted('sequence')[:1]
+                team_stages = team.stage_ids.sorted('sequence')
+                first_stage = team_stages[:1] if team_stages else self.env['helpdesk.stage'].search([], order='sequence, id', limit=1)
                 if first_stage:
                     vals['stage_id'] = first_stage.id
         tickets = super().create(vals_list)

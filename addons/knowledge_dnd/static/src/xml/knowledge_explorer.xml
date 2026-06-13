@@ -57,7 +57,7 @@
      KnowledgeApp — main client action layout
      ═══════════════════════════════════════════════════════════════════════════ -->
 <t t-name="knowledge_dnd.KnowledgeApp">
-    <div class="o_knowledge_app">
+    <div class="o_knowledge_app" t-on-click="() => { this.state.showMoreMenu = false; this.state.showCategoryMenu = false; }">
 
         <!-- ════════ LEFT SIDEBAR ════════ -->
         <div class="o_knowledge_sidebar">
@@ -148,7 +148,7 @@
                 <div class="o_sidebar_bottom_link">
                     <i class="fa fa-magic"/> Browse Templates
                 </div>
-                <div class="o_sidebar_bottom_link">
+                <div class="o_sidebar_bottom_link" t-on-click="() => this.openTrash()">
                     <i class="fa fa-trash"/> Open the Trash
                 </div>
             </div>
@@ -175,9 +175,26 @@
                                t-model="state.searchQuery"/>
                     </div>
 
+                    <!-- Selection toolbar -->
+                    <div class="o_kn_selection_bar" t-if="selectedArticleCount > 0">
+                        <span class="o_kn_sel_count">
+                            <t t-esc="selectedArticleCount"/> selected
+                            <button class="o_kn_sel_clear" t-on-click="() => this.clearArticleSelection()">×</button>
+                        </span>
+                        <button class="o_kn_sel_action_btn o_kn_sel_trash"
+                                t-on-click="() => this.sendSelectedToTrash()">
+                            <i class="fa fa-trash"/> Send to Trash
+                        </button>
+                    </div>
+
                     <table class="o_kn_article_table">
                         <thead>
                             <tr>
+                                <th class="col-check">
+                                    <input type="checkbox"
+                                           t-att-checked="allArticlesSelected"
+                                           t-on-click="(ev) => this.toggleAllArticles(ev)"/>
+                                </th>
                                 <th class="col-name">Name</th>
                                 <th class="col-parent">Parent Article</th>
                                 <th class="col-author">Created by</th>
@@ -187,12 +204,18 @@
                         <tbody>
                             <t t-if="!filteredArticles.length">
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-5">No articles found</td>
+                                    <td colspan="5" class="text-center text-muted py-5">No articles found</td>
                                 </tr>
                             </t>
                             <t t-foreach="filteredArticles" t-as="article" t-key="article.id">
                                 <tr class="o_kn_article_row"
+                                    t-att-class="selection.articleIds.includes(article.id) ? 'o_kn_article_row o_kn_row_selected' : 'o_kn_article_row'"
                                     t-on-click="() => this.selectArticle(article)">
+                                    <td class="col-check" t-on-click.stop="(ev) => this.toggleArticleSelection(ev, article.id)">
+                                        <input type="checkbox"
+                                               t-att-checked="selection.articleIds.includes(article.id)"
+                                               t-on-click.stop="(ev) => this.toggleArticleSelection(ev, article.id)"/>
+                                    </td>
                                     <td class="col-name">
                                         <span class="o_row_icon" t-esc="article.icon or '📄'"/>
                                         <span class="o_row_name" t-esc="article.name"/>
@@ -212,6 +235,101 @@
                             </t>
                         </tbody>
                     </table>
+                </div>
+            </t>
+
+            <!-- ── Trash view ── -->
+            <t t-elif="state.showTrash">
+                <div class="o_kn_trash_view">
+                    <div class="o_kn_trash_header">
+                        <button class="o_kn_back_btn" t-on-click="() => this.closeTrash()">
+                            <i class="fa fa-arrow-left"/> Back
+                        </button>
+                        <h5 class="o_kn_trash_title">Trash</h5>
+                    </div>
+                    <t t-if="!state.trashedArticles.length">
+                        <div class="o_kn_trash_empty">
+                            <i class="fa fa-trash-o fa-3x text-muted mb-3"/>
+                            <p class="text-muted">Trash is empty</p>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <!-- Selection toolbar -->
+                        <div class="o_kn_selection_bar" t-if="selectedTrashCount > 0">
+                            <span class="o_kn_sel_count">
+                                <t t-esc="selectedTrashCount"/> selected
+                                <button class="o_kn_sel_clear" t-on-click="() => this.clearTrashSelection()">×</button>
+                            </span>
+                            <button class="o_kn_sel_action_btn o_kn_sel_restore"
+                                    t-on-click="() => this.restoreSelectedFromTrash()">
+                                <i class="fa fa-undo"/> Restore
+                            </button>
+                            <button class="o_kn_sel_action_btn o_kn_sel_delete"
+                                    t-on-click="() => this.deleteSelectedPermanently()">
+                                <i class="fa fa-trash"/> Delete Permanently
+                            </button>
+                        </div>
+
+                        <table class="o_kn_trash_table">
+                            <thead>
+                                <tr>
+                                    <th class="col-check">
+                                        <input type="checkbox"
+                                               t-att-checked="allTrashSelected"
+                                               t-on-click="(ev) => this.toggleAllTrash(ev)"/>
+                                    </th>
+                                    <th class="col-name">Name</th>
+                                    <th class="col-parent">Parent Article</th>
+                                    <th class="col-author">Created by</th>
+                                    <th class="col-date">Created on</th>
+                                    <th class="col-actions"/>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.trashedArticles" t-as="item" t-key="item.id">
+                                    <tr t-att-class="selection.trashIds.includes(item.id) ? 'o_kn_trash_row o_kn_row_selected' : 'o_kn_trash_row'">
+                                        <td class="col-check" t-on-click.stop="(ev) => this.toggleTrashSelection(ev, item.id)">
+                                            <input type="checkbox"
+                                                   t-att-checked="selection.trashIds.includes(item.id)"
+                                                   t-on-click.stop="(ev) => this.toggleTrashSelection(ev, item.id)"/>
+                                        </td>
+                                        <td class="col-name">
+                                            <span class="o_row_icon" t-esc="item.icon or '📄'"/>
+                                            <span class="o_row_name" t-esc="item.name"/>
+                                            <i t-att-class="item.is_favorite ? 'fa fa-star o_fav_active ms-2' : 'fa fa-star-o o_fav_inactive ms-2'"/>
+                                        </td>
+                                        <td class="col-parent">
+                                            <t t-if="item.parent_id">
+                                                <span class="o_row_icon">📄</span>
+                                                <span class="text-muted" t-esc="item.parent_id[1]"/>
+                                            </t>
+                                        </td>
+                                        <td class="col-author">
+                                            <t t-if="item.author_id">
+                                                <img class="o_kn_avatar_xs"
+                                                     t-att-src="'/web/image/res.users/' + item.author_id[0] + '/avatar_128'"
+                                                     t-att-alt="item.author_id[1]"/>
+                                                <span class="ms-2 text-muted" t-esc="item.author_id[1]"/>
+                                            </t>
+                                        </td>
+                                        <td class="col-date text-muted" t-esc="formatDateTime(item.create_date)"/>
+                                        <td class="col-actions">
+                                            <button class="o_kn_restore_btn"
+                                                    t-on-click.stop="() => this.restoreFromTrash(item.id)"
+                                                    title="Restore">
+                                                <i class="fa fa-undo"/> Restore
+                                            </button>
+                                            <button class="o_kn_delete_btn"
+                                                    t-on-click.stop="() => this.permanentDelete(item.id)"
+                                                    title="Delete permanently">
+                                                <i class="fa fa-trash"/>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
                 </div>
             </t>
 
@@ -236,9 +354,18 @@
                                 t-att-title="state.article.is_favorite ? 'Remove from Favorites' : 'Add to Favorites'">
                             <i t-att-class="state.article.is_favorite ? 'fa fa-star o_kn_star_active' : 'fa fa-star-o'"/>
                         </button>
-                        <button class="o_kn_action_icon_btn" title="More options">
-                            <i class="fa fa-ellipsis-h"/>
-                        </button>
+                        <div class="o_kn_more_menu_wrapper" t-on-click.stop="(ev) => this.toggleMoreMenu(ev)">
+                            <button class="o_kn_action_icon_btn" title="More options"
+                                    t-att-class="state.showMoreMenu ? 'o_kn_action_icon_btn o_active' : 'o_kn_action_icon_btn'">
+                                <i class="fa fa-ellipsis-h"/>
+                            </button>
+                            <div class="o_kn_more_dropdown" t-if="state.showMoreMenu" t-on-click.stop="">
+                                <div class="o_kn_more_item o_kn_more_danger"
+                                     t-on-click="() => this.sendToTrash()">
+                                    <i class="fa fa-trash"/> Send to Trash
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

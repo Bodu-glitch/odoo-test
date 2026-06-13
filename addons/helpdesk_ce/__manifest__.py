@@ -1,6 +1,6 @@
 {
     'name': 'Helpdesk',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'category': 'Services/Helpdesk',
     'summary': 'Track, prioritize, and solve customer tickets',
     'description': 'Helpdesk management: tickets, teams, SLA, reporting.',
@@ -18,6 +18,7 @@
     ],
     'assets': {
         'web.assets_backend': [
+            'helpdesk_ce/static/src/css/helpdesk.css',
             'helpdesk_ce/static/src/overview/helpdesk_overview.js',
             'helpdesk_ce/static/src/overview/helpdesk_overview.xml',
         ],

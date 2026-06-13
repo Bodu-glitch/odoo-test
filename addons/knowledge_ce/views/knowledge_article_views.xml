@@ -39,36 +39,59 @@
                 <header>
                     <button name="action_toggle_favorite" type="object"
                             string="☆ Add to Favorites"
-                            invisible="is_favorite"
+                            invisible="is_favorite or trashed"
                             class="btn-secondary"/>
                     <button name="action_toggle_favorite" type="object"
                             string="★ Remove from Favorites"
-                            invisible="not is_favorite"
+                            invisible="not is_favorite or trashed"
                             class="btn-warning"/>
                     <button name="action_new_subarticle" type="object"
                             string="+ Sub-article"
+                            invisible="trashed"
                             class="btn-secondary"/>
                     <button name="action_open_children" type="object"
                             string="View Sub-articles"
-                            invisible="child_count == 0"
+                            invisible="child_count == 0 or trashed"
                             class="btn-secondary"/>
+                    <button name="action_send_to_trash" type="object"
+                            string="🗑 Send to Trash"
+                            invisible="trashed"
+                            class="btn-danger"
+                            confirm="Move this article to the Trash?"/>
+                    <button name="action_restore_from_trash" type="object"
+                            string="↩ Restore"
+                            invisible="not trashed"
+                            class="btn-success"/>
+                    <button name="action_permanent_delete" type="object"
+                            string="Delete Permanently"
+                            invisible="not trashed"
+                            class="btn-danger"
+                            confirm="Permanently delete this article? This cannot be undone."/>
                     <field name="category" widget="statusbar"
                            statusbar_visible="private,shared,workspace"
-                           clickable="1"/>
+                           clickable="1"
+                           invisible="trashed"/>
                 </header>
                 <sheet>
                     <!-- Fields needed for invisible expressions -->
                     <field name="is_favorite" invisible="1"/>
                     <field name="child_count" invisible="1"/>
+                    <field name="trashed" invisible="1"/>
+                    <div class="alert alert-warning mb-3" role="alert" invisible="not trashed">
+                        <strong>This article is in the Trash.</strong>
+                        Restore it to continue editing, or delete it permanently.
+                    </div>
                     <div class="o_knowledge_article_wrapper">
                         <div class="o_knowledge_article_header mb-3">
                             <div class="d-flex align-items-center gap-2">
                                 <field name="icon"
                                        class="o_knowledge_icon"
-                                       placeholder="📄"/>
+                                       placeholder="📄"
+                                       readonly="trashed"/>
                                 <field name="name"
                                        class="o_knowledge_title"
-                                       placeholder="Article Title..."/>
+                                       placeholder="Article Title..."
+                                       readonly="trashed"/>
                             </div>
                             <div class="text-muted small mt-1 d-flex align-items-center flex-wrap">
                                 <field name="author_id"
@@ -90,7 +113,8 @@
                                widget="html"
                                placeholder="Start writing your article..."
                                class="o_knowledge_body"
-                               options="{'height': 600}"/>
+                               options="{'height': 600}"
+                               readonly="trashed"/>
                     </div>
 
                     <notebook>
@@ -165,7 +189,7 @@
                         domain="[('category', '=', 'workspace')]"/>
                 <separator/>
                 <filter string="Archived" name="archived"
-                        domain="[('active', '=', False)]"/>
+                        domain="[('active', '=', False), ('trashed', '=', False)]"/>
                 <group expand="0" string="Group By">
                     <filter string="Author" name="group_author"
                             context="{'group_by': 'author_id'}"/>
@@ -232,6 +256,48 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Workspace is empty</p>
             <p>Workspace articles are visible to everyone in your company.</p>
+        </field>
+    </record>
+
+    <!-- ───────────── TRASH LIST VIEW ───────────── -->
+    <record id="knowledge_article_trash_list_view" model="ir.ui.view">
+        <field name="name">knowledge.article.trash.list</field>
+        <field name="model">knowledge.article</field>
+        <field name="arch" type="xml">
+            <tree string="Trash" create="0" edit="0" delete="0">
+                <field name="icon" string=" "/>
+                <field name="name" string="Title"/>
+                <field name="category" widget="badge"
+                       decoration-success="category == 'workspace'"
+                       decoration-info="category == 'shared'"
+                       decoration-muted="category == 'private'"/>
+                <field name="author_id" widget="many2one_avatar_user"/>
+                <field name="write_date" string="Moved to Trash"/>
+                <button name="action_restore_from_trash" type="object"
+                        string="Restore" icon="fa-undo"
+                        class="btn-success btn-sm"/>
+                <button name="action_permanent_delete" type="object"
+                        string="Delete Forever" icon="fa-trash"
+                        class="btn-danger btn-sm"
+                        confirm="Permanently delete this article? This cannot be undone."/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ───────────── TRASH ACTION ───────────── -->
+    <record id="knowledge_article_action_trash" model="ir.actions.act_window">
+        <field name="name">Trash</field>
+        <field name="res_model">knowledge.article</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('trashed', '=', True)]</field>
+        <field name="context">{'active_test': False}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('knowledge_article_trash_list_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('knowledge_article_form_view')}),
+        ]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Trash is empty</p>
+            <p>Articles you delete will appear here. You can restore them or delete permanently.</p>
         </field>
     </record>
 

@@ -14,12 +14,9 @@
                 <field name="user_id"/>
                 <field name="partner_id"/>
                 <field name="tag_ids"/>
-                <field name="kanban_state"/>
                 <field name="sla_deadline"/>
                 <field name="sla_fail"/>
                 <field name="ticket_ref"/>
-                <progressbar field="kanban_state"
-                             colors='{"normal": "muted", "done": "success", "blocked": "danger"}'/>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_card oe_kanban_global_click o_kanban_color_#{record.color.value}">
@@ -55,7 +52,6 @@
                                          t-att-alt="record.user_id.value"
                                          class="oe_kanban_avatar o_image_24_cover rounded-circle"
                                          t-if="record.user_id.raw_value"/>
-                                    <field name="kanban_state" widget="kanban_state_selection"/>
                                 </div>
                             </div>
                         </div>

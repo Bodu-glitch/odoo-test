@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class KnowledgeArticle(models.Model):
@@ -72,6 +72,7 @@ class KnowledgeArticle(models.Model):
     )
 
     active = fields.Boolean(default=True)
+    trashed = fields.Boolean('In Trash', default=False)
 
     @api.depends('child_ids')
     def _compute_child_count(self):
@@ -134,3 +135,25 @@ class KnowledgeArticle(models.Model):
                 'default_category': self.category,
             },
         }
+
+    def action_send_to_trash(self):
+        to_trash = self.env['knowledge.article']
+        for article in self:
+            to_trash |= article | self.search([('parent_path', 'like', article.parent_path + '%')])
+        to_trash.write({'active': False, 'trashed': True})
+
+    def action_restore_from_trash(self):
+        is_manager = self.env.user.has_group('knowledge_ce.knowledge_group_manager')
+        if not is_manager:
+            non_owned = self.filtered(lambda a: a.author_id.id != self.env.user.id)
+            if non_owned:
+                raise UserError('You can only restore your own articles.')
+        self.sudo().write({'active': True, 'trashed': False})
+
+    def action_permanent_delete(self):
+        is_manager = self.env.user.has_group('knowledge_ce.knowledge_group_manager')
+        if not is_manager:
+            non_owned = self.filtered(lambda a: a.author_id.id != self.env.user.id)
+            if non_owned:
+                raise UserError('You can only permanently delete your own articles.')
+        self.sudo().unlink()

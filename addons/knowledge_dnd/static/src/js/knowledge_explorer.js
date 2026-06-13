@@ -72,6 +72,15 @@ export class KnowledgeApp extends Component {
             allArticles: [],
             searchQuery: "",
             showCategoryMenu: false,
+            showMoreMenu: false,
+            showTrash: false,
+            trashedArticles: [],
+        });
+
+        // Multi-select state for article list and trash view
+        this.selection = useState({
+            articleIds: [],
+            trashIds: [],
         });
 
         // DOM refs for contenteditable title and innerHTML body
@@ -100,7 +109,7 @@ export class KnowledgeApp extends Component {
     async loadSidebar() {
         const roots = await this.orm.searchRead(
             "knowledge.article",
-            [["parent_id", "=", false]],
+            [["parent_id", "=", false], ["trashed", "=", false]],
             ["id", "name", "icon", "category", "is_favorite", "child_ids", "sequence"],
             { order: "sequence, name", limit: 300 },
         );
@@ -110,7 +119,7 @@ export class KnowledgeApp extends Component {
 
         this.state.allArticles = await this.orm.searchRead(
             "knowledge.article",
-            [],
+            [["trashed", "=", false]],
             ["id", "name", "icon", "category", "parent_id", "author_id", "create_date", "is_favorite"],
             { order: "sequence, name", limit: 500 },
         );
@@ -124,7 +133,7 @@ export class KnowledgeApp extends Component {
         }
         const children = await this.orm.searchRead(
             "knowledge.article",
-            [["parent_id", "=", parentId]],
+            [["parent_id", "=", parentId], ["trashed", "=", false]],
             ["id", "name", "icon", "category", "is_favorite", "child_ids", "sequence"],
             { order: "sequence, name" },
         );
@@ -135,7 +144,7 @@ export class KnowledgeApp extends Component {
     async _forceReloadChildren(parentId) {
         const children = await this.orm.searchRead(
             "knowledge.article",
-            [["parent_id", "=", parentId]],
+            [["parent_id", "=", parentId], ["trashed", "=", false]],
             ["id", "name", "icon", "category", "is_favorite", "child_ids", "sequence"],
             { order: "sequence, name" },
         );
@@ -201,6 +210,67 @@ export class KnowledgeApp extends Component {
 
     closeCategoryMenu() {
         this.state.showCategoryMenu = false;
+    }
+
+    // ── More options menu ─────────────────────────────────────────────────────
+
+    toggleMoreMenu(ev) {
+        if (ev) ev.stopPropagation();
+        this.state.showMoreMenu = !this.state.showMoreMenu;
+    }
+
+    closeMoreMenu() {
+        this.state.showMoreMenu = false;
+    }
+
+    async sendToTrash() {
+        if (!this.state.article) return;
+        await this.orm.call("knowledge.article", "action_send_to_trash", [[this.state.article.id]]);
+        this.state.showMoreMenu = false;
+        this.goHome();
+        await this.loadSidebar();
+    }
+
+    // ── Trash view ────────────────────────────────────────────────────────────
+
+    async openTrash() {
+        this.state.showTrash = true;
+        this.state.showList = false;
+        this.state.article = null;
+        this.tree.selectedId = null;
+        await this._loadTrashedArticles();
+    }
+
+    async _loadTrashedArticles() {
+        this.state.trashedArticles = await this.orm.searchRead(
+            "knowledge.article",
+            [["trashed", "=", true]],
+            ["id", "name", "icon", "category", "author_id", "create_date", "parent_id", "is_favorite"],
+            { order: "create_date desc", limit: 200, context: { active_test: false } },
+        );
+    }
+
+    async restoreFromTrash(articleId) {
+        await this.orm.call(
+            "knowledge.article", "action_restore_from_trash", [[articleId]],
+            { context: { active_test: false } },
+        );
+        await this._loadTrashedArticles();
+        await this.loadSidebar();
+    }
+
+    async permanentDelete(articleId) {
+        if (!window.confirm("Permanently delete this article? This cannot be undone.")) return;
+        await this.orm.call(
+            "knowledge.article", "action_permanent_delete", [[articleId]],
+            { context: { active_test: false } },
+        );
+        await this._loadTrashedArticles();
+    }
+
+    closeTrash() {
+        this.state.showTrash = false;
+        this.state.showList = true;
     }
 
     async createChildArticle(parentNode) {
@@ -302,8 +372,116 @@ export class KnowledgeApp extends Component {
         }
     }
 
+    formatDateTime(dateStr) {
+        if (!dateStr) return "";
+        try {
+            return new Date(dateStr).toLocaleDateString(undefined, {
+                month: "short", day: "numeric",
+                hour: "numeric", minute: "2-digit",
+            });
+        } catch {
+            return dateStr;
+        }
+    }
+
     get articleIcon() {
         return this.state.article?.icon || "📄";
+    }
+
+    // ── Article list selection ────────────────────────────────────────────────
+
+    get selectedArticleCount() { return this.selection.articleIds.length; }
+
+    get allArticlesSelected() {
+        const all = this.filteredArticles;
+        return all.length > 0 && all.every(a => this.selection.articleIds.includes(a.id));
+    }
+
+    toggleArticleSelection(ev, id) {
+        ev.stopPropagation();
+        const idx = this.selection.articleIds.indexOf(id);
+        if (idx >= 0) {
+            this.selection.articleIds.splice(idx, 1);
+        } else {
+            this.selection.articleIds.push(id);
+        }
+    }
+
+    toggleAllArticles(ev) {
+        ev.stopPropagation();
+        if (this.allArticlesSelected) {
+            this.selection.articleIds = [];
+        } else {
+            this.selection.articleIds = this.filteredArticles.map(a => a.id);
+        }
+    }
+
+    clearArticleSelection() {
+        this.selection.articleIds = [];
+    }
+
+    async sendSelectedToTrash() {
+        const ids = this.selection.articleIds.slice();
+        if (!ids.length) return;
+        await this.orm.call("knowledge.article", "action_send_to_trash", [ids]);
+        this.selection.articleIds = [];
+        await this.loadSidebar();
+    }
+
+    // ── Trash view selection ──────────────────────────────────────────────────
+
+    get selectedTrashCount() { return this.selection.trashIds.length; }
+
+    get allTrashSelected() {
+        const all = this.state.trashedArticles;
+        return all.length > 0 && all.every(a => this.selection.trashIds.includes(a.id));
+    }
+
+    toggleTrashSelection(ev, id) {
+        ev.stopPropagation();
+        const idx = this.selection.trashIds.indexOf(id);
+        if (idx >= 0) {
+            this.selection.trashIds.splice(idx, 1);
+        } else {
+            this.selection.trashIds.push(id);
+        }
+    }
+
+    toggleAllTrash(ev) {
+        ev.stopPropagation();
+        if (this.allTrashSelected) {
+            this.selection.trashIds = [];
+        } else {
+            this.selection.trashIds = this.state.trashedArticles.map(a => a.id);
+        }
+    }
+
+    clearTrashSelection() {
+        this.selection.trashIds = [];
+    }
+
+    async restoreSelectedFromTrash() {
+        const ids = this.selection.trashIds.slice();
+        if (!ids.length) return;
+        await this.orm.call(
+            "knowledge.article", "action_restore_from_trash", [ids],
+            { context: { active_test: false } },
+        );
+        this.selection.trashIds = [];
+        await this._loadTrashedArticles();
+        await this.loadSidebar();
+    }
+
+    async deleteSelectedPermanently() {
+        const ids = this.selection.trashIds.slice();
+        if (!ids.length) return;
+        if (!window.confirm(`Permanently delete ${ids.length} article(s)? This cannot be undone.`)) return;
+        await this.orm.call(
+            "knowledge.article", "action_permanent_delete", [ids],
+            { context: { active_test: false } },
+        );
+        this.selection.trashIds = [];
+        await this._loadTrashedArticles();
     }
 }
 

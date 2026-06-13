@@ -1,0 +1,12 @@
+/* Fix priority stars wrapping vertically in kanban cards */
+.o_helpdesk_kanban .o_field_priority {
+    flex-shrink: 0;
+}
+
+.o_helpdesk_kanban .o_priority {
+    white-space: nowrap;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 2px;
+}

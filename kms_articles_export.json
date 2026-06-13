@@ -1,0 +1,178 @@
+[
+  {
+    "id": 5,
+    "name": "New Article",
+    "body": "<span id=\"docs-internal-guid-d7807c96-7fff-e30d-3ad0-e60d51cfc6dc\"><p dir=\"ltr\" style=\"line-height:1.2;margin-right: -0.75pt;margin-top:0pt;margin-bottom:10pt;\"><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(247, 93, 93); background-color: transparent; font-weight: 700; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chào bạn!</span><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(204, 204, 204); background-color: transparent; font-weight: 700; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"><br></span><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 700; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Tôi là (tên bạn)</span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">123 TÊN ĐƯỜNG PHỐ</span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">QUẬN/HUYỆN, TỈNH/THÀNH PHỐ</span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 700; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">(+84) 000-0000</span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 700; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">NO_REPLY@EXAMPLE.COM</span></p><h1 dir=\"ltr\" style=\"margin-right: -1.5pt; margin-top: 16pt; margin-bottom: 0pt;\"><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(247, 93, 93); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Kỹ năng</span></h1><p dir=\"ltr\" style=\"line-height:1.56;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây.</span></p><h1 dir=\"ltr\" style=\"margin-right: -1.5pt; margin-top: 16pt; margin-bottom: 0pt;\"><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(247, 93, 93); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Kinh nghiệm</span></h1><h2 dir=\"ltr\" style=\"line-height:1.56;margin-left: -0.75pt;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(102, 102, 102); background-color: transparent; font-weight: 400; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">THÁNG NĂM 20XX - HIỆN TẠI</span></h2><h3 dir=\"ltr\" style=\"margin: 0pt -1.5pt 0pt -0.75pt;\"><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Tên công ty, Địa điểm</span><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 400; font-style: italic; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"> - Chức danh</span></h3><ul style=\"margin-bottom: 0px; padding-inline-start: 48px;\"><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây.</span></p></li><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây .</span></p></li><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây.</span></p></li></ul><h2 dir=\"ltr\" style=\"line-height:1.56;margin-left: -0.75pt;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(102, 102, 102); background-color: transparent; font-weight: 400; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">THÁNG NĂM 20XX - THÁNG NĂM 20XX</span></h2><h3 dir=\"ltr\" style=\"margin: 0pt -1.5pt 0pt -0.75pt;\"><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Tên công ty, Địa điểm</span><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 400; font-style: italic; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"> - Chức danh</span></h3><ul style=\"margin-bottom: 0px; padding-inline-start: 48px;\"><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây.&nbsp;</span></p></li><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây.</span></p></li></ul><h2 dir=\"ltr\" style=\"line-height:1.56;margin-left: -0.75pt;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(102, 102, 102); background-color: transparent; font-weight: 400; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">THÁNG NĂM 20XX - THÁNG NĂM 20XX</span></h2><h3 dir=\"ltr\" style=\"margin: 0pt -1.5pt 0pt -0.75pt;\"><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Tên công ty, Địa điểm</span><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 400; font-style: italic; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"> - Chức danh</span></h3><ul style=\"margin-bottom: 0px; padding-inline-start: 48px;\"><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây.&nbsp;</span></p></li><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây.</span></p></li><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây.</span></p></li></ul><h1 dir=\"ltr\" style=\"margin-right: -1.5pt; margin-top: 16pt; margin-bottom: 0pt;\"><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(247, 93, 93); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Học vấn</span></h1><h2 dir=\"ltr\" style=\"line-height:1.56;margin-left: -0.75pt;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(102, 102, 102); background-color: transparent; font-weight: 400; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">THÁNG NĂM 20XX - THÁNG NĂM 20XX</span></h2><h3 dir=\"ltr\" style=\"margin: 0pt -1.5pt 0pt -0.75pt;\"><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Tên trường, Địa điểm</span><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 400; font-style: italic; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"> - Trình độ</span></h3><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây.</span></p><h1 dir=\"ltr\" style=\"margin-right: -1.5pt; margin-top: 16pt; margin-bottom: 0pt;\"><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(247, 93, 93); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Thành tích</span></h1><p dir=\"ltr\" style=\"line-height:1.56;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây.&nbsp;</span></p><p dir=\"ltr\" style=\"line-height:1.56;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây.&nbsp;</span></p><div bis_skin_checked=\"1\"><span style=\"font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"><br></span></div></span>",
+    "category": "private",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": null,
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-02 06:28:27"
+  },
+  {
+    "id": 2,
+    "name": "New Article",
+    "body": "",
+    "category": "workspace",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": null,
+    "author": "Marc Demo",
+    "write_date": "2026-05-28 07:46:55"
+  },
+  {
+    "id": 3,
+    "name": "New Article",
+    "body": "<p>bb</p><p>Chào bạn!</p><p>Tôi là (tên bạn)</p><p>123 TÊN ĐƯỜNG PHỐ</p><p>QUẬN/HUYỆN, TỈNH/THÀNH PHỐ</p><p>(+84) 000-0000</p><p>NO_REPLY@EXAMPLE.COM</p><h1>Kỹ năng</h1><p>Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây.</p><h1>Kinh nghiệm</h1><h2>THÁNG NĂM 20XX - HIỆN TẠI</h2><h3>Tên công ty, Địa điểm - Chức danh</h3><ul><li>Chèn văn bản vào đây Chèn văn bản vào đây.</li><li>Chèn văn bản vào đây .</li><li>Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây.</li></ul><h2>THÁNG NĂM 20XX - THÁNG NĂM 20XX</h2><h3>Tên công ty, Địa điểm - Chức danh</h3><ul><li>Chèn văn bản vào đây Chèn văn bản vào đây.&nbsp;</li><li>Chèn văn bản vào đây.</li></ul><h2>THÁNG NĂM 20XX - THÁNG NĂM 20XX</h2><h3>Tên công ty, Địa điểm - Chức danh</h3><ul><li>Chèn văn bản vào đây Chèn văn bản vào đây.&nbsp;</li><li>Chèn văn bản vào đây Chèn văn bản vào đây.</li><li>Chèn văn bản vào đây.</li></ul><h1>Học vấn</h1><h2>THÁNG NĂM 20XX - THÁNG NĂM 20XX</h2><h3>Tên trường, Địa điểm - Trình độ</h3><p>Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây.</p><h1>Thành tích</h1><p>Chèn văn bản vào đây Chèn văn bản vào đây.&nbsp;</p><p>Chèn văn bản vào đây.&nbsp;</p><p>\n\n</p><p><br></p>",
+    "category": "workspace",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": "Nw Article",
+    "author": "Marc Demo",
+    "write_date": "2026-06-02 05:53:11"
+  },
+  {
+    "id": 4,
+    "name": "New Article",
+    "body": "",
+    "category": "workspace",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": "Nw Article",
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-02 04:12:50"
+  },
+  {
+    "id": 1,
+    "name": "Nw Article",
+    "body": "",
+    "category": "workspace",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": null,
+    "author": "Marc Demo",
+    "write_date": "2026-06-02 04:20:13"
+  },
+  {
+    "id": 13,
+    "name": "Untitled",
+    "body": "",
+    "category": "private",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": "Untitled",
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-03 13:40:56"
+  },
+  {
+    "id": 9,
+    "name": "Untitled",
+    "body": "<span id=\"docs-internal-guid-d7807c96-7fff-e30d-3ad0-e60d51cfc6dc\"><p dir=\"ltr\" style=\"line-height:1.2;margin-right: -0.75pt;margin-top:0pt;margin-bottom:10pt;\"><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(247, 93, 93); background-color: transparent; font-weight: 700; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chào bạn!</span><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(204, 204, 204); background-color: transparent; font-weight: 700; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"><br></span><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 700; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Tôi là (tên bạn)</span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">123 TÊN ĐƯỜNG PHỐ</span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">QUẬN/HUYỆN, TỈNH/THÀNH PHỐ</span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 700; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">(+84) 000-0000</span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 700; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">NO_REPLY@EXAMPLE.COM</span></p><h1 dir=\"ltr\" style=\"margin-right: -1.5pt; margin-top: 16pt; margin-bottom: 0pt;\"><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(247, 93, 93); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Kỹ năng</span></h1><p dir=\"ltr\" style=\"line-height:1.56;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây.</span></p><h1 dir=\"ltr\" style=\"margin-right: -1.5pt; margin-top: 16pt; margin-bottom: 0pt;\"><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(247, 93, 93); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Kinh nghiệm</span></h1><h2 dir=\"ltr\" style=\"line-height:1.56;margin-left: -0.75pt;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(102, 102, 102); background-color: transparent; font-weight: 400; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">THÁNG NĂM 20XX - HIỆN TẠI</span></h2><h3 dir=\"ltr\" style=\"margin: 0pt -1.5pt 0pt -0.75pt;\"><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Tên công ty, Địa điểm</span><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 400; font-style: italic; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"> - Chức danh</span></h3><ul style=\"margin-bottom: 0px; padding-inline-start: 48px;\"><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây.</span></p></li><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây .</span></p></li><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây.</span></p></li></ul><h2 dir=\"ltr\" style=\"line-height:1.56;margin-left: -0.75pt;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(102, 102, 102); background-color: transparent; font-weight: 400; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">THÁNG NĂM 20XX - THÁNG NĂM 20XX</span></h2><h3 dir=\"ltr\" style=\"margin: 0pt -1.5pt 0pt -0.75pt;\"><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Tên công ty, Địa điểm</span><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 400; font-style: italic; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"> - Chức danh</span></h3><ul style=\"margin-bottom: 0px; padding-inline-start: 48px;\"><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây.&nbsp;</span></p></li><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây.</span></p></li></ul><h2 dir=\"ltr\" style=\"line-height:1.56;margin-left: -0.75pt;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(102, 102, 102); background-color: transparent; font-weight: 400; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">THÁNG NĂM 20XX - THÁNG NĂM 20XX</span></h2><h3 dir=\"ltr\" style=\"margin: 0pt -1.5pt 0pt -0.75pt;\"><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Tên công ty, Địa điểm</span><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 400; font-style: italic; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"> - Chức danh</span></h3><ul style=\"margin-bottom: 0px; padding-inline-start: 48px;\"><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây.&nbsp;</span></p></li><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây.</span></p></li><li dir=\"ltr\" style=\"list-style-type: disc; font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre;\" aria-level=\"1\"><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:0pt;margin-bottom:0pt;\" role=\"presentation\"><span style=\"font-size: 10pt; background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây.</span></p></li></ul><h1 dir=\"ltr\" style=\"margin-right: -1.5pt; margin-top: 16pt; margin-bottom: 0pt;\"><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(247, 93, 93); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Học vấn</span></h1><h2 dir=\"ltr\" style=\"line-height:1.56;margin-left: -0.75pt;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 9pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(102, 102, 102); background-color: transparent; font-weight: 400; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">THÁNG NĂM 20XX - THÁNG NĂM 20XX</span></h2><h3 dir=\"ltr\" style=\"margin: 0pt -1.5pt 0pt -0.75pt;\"><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Tên trường, Địa điểm</span><span style=\"font-size: 11pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(0, 0, 0); background-color: transparent; font-weight: 400; font-style: italic; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"> - Trình độ</span></h3><p dir=\"ltr\" style=\"line-height:1.56;margin-right: -1.5pt;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây Chèn văn bản vào đây.</span></p><h1 dir=\"ltr\" style=\"margin-right: -1.5pt; margin-top: 16pt; margin-bottom: 0pt;\"><span style=\"font-size: 14pt; font-family: &quot;Playfair Display&quot;, serif; color: rgb(247, 93, 93); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Thành tích</span></h1><p dir=\"ltr\" style=\"line-height:1.56;margin-top:10pt;margin-bottom:0pt;\"><span style=\"font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây Chèn văn bản vào đây.&nbsp;</span></p><p dir=\"ltr\" style=\"line-height:1.56;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\">Chèn văn bản vào đây.&nbsp;</span></p><div bis_skin_checked=\"1\"><span style=\"font-size: 10pt; font-family: &quot;Open Sans&quot;, sans-serif; color: rgb(0, 0, 0); background-color: transparent; font-variant: normal; vertical-align: baseline; white-space: pre-wrap;\"><br></span></div></span>",
+    "category": "private",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": null,
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-03 13:58:54"
+  },
+  {
+    "id": 14,
+    "name": "Untitled",
+    "body": "",
+    "category": "private",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": "Untitled",
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-03 13:41:02"
+  },
+  {
+    "id": 15,
+    "name": "Untitled",
+    "body": "",
+    "category": "private",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": "Untitled",
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-04 06:27:59"
+  },
+  {
+    "id": 10,
+    "name": "Untitled",
+    "body": "<br>",
+    "category": "private",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": null,
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-03 16:17:29"
+  },
+  {
+    "id": 16,
+    "name": "Untitled",
+    "body": "",
+    "category": "private",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": "Untitled",
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-04 06:28:03"
+  },
+  {
+    "id": 11,
+    "name": "Untitled",
+    "body": "",
+    "category": "private",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": "Untitled",
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-03 13:40:28"
+  },
+  {
+    "id": 7,
+    "name": "Untitled",
+    "body": "",
+    "category": "workspace",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": "Nw Article",
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-02 06:14:51"
+  },
+  {
+    "id": 12,
+    "name": "Untitled",
+    "body": "",
+    "category": "private",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": "Untitled",
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-03 13:40:51"
+  },
+  {
+    "id": 6,
+    "name": "Untitled",
+    "body": "",
+    "category": "shared",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": null,
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-02 06:22:40"
+  },
+  {
+    "id": 8,
+    "name": "mmm",
+    "body": "",
+    "category": "private",
+    "workspace_dimension": false,
+    "tags": [],
+    "parent": "New Article",
+    "author": "Mitchell Admin",
+    "write_date": "2026-06-02 06:15:08"
+  }
+]
